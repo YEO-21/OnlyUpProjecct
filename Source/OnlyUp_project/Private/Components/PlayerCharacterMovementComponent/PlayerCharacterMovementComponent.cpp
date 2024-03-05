@@ -25,7 +25,6 @@ void UPlayerCharacterMovementComponent::TickComponent(float DeltaTime, ELevelTic
 
 void UPlayerCharacterMovementComponent::HorizontalMove(float axis)
 {
-	UE_LOG(LogTemp, Warning, TEXT("HorizontalMove is called"));
 	AGameCharacter* gameCharacter = Cast<AGameCharacter>(GetOwner());
 	FRotator yawRotator = FRotator(0.0f, gameCharacter->GetControlRotation().Yaw, 0.0f);
 
@@ -36,7 +35,6 @@ void UPlayerCharacterMovementComponent::HorizontalMove(float axis)
 
 void UPlayerCharacterMovementComponent::VerticalMove(float axis)
 {
-	UE_LOG(LogTemp, Warning, TEXT("VerticalMove is called"));
 	AGameCharacter* gameCharacter = Cast<AGameCharacter>(GetOwner());
 	FRotator yawRotator = FRotator(0.0f, gameCharacter->GetControlRotation().Yaw, 0.0f);
 

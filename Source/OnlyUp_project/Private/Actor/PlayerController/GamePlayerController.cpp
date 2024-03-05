@@ -19,14 +19,17 @@ void AGamePlayerController::SetupInputComponent()
 		TEXT("MouseX"), this, &ThisClass::OnMouseXInput);
 
 	InputComponent->BindAxis(
-		TEXT("MouseX"), this, &ThisClass::OnMouseYInput);
+		TEXT("MouseY"), this, &ThisClass::OnMouseYInput);
 
 	InputComponent->BindAxis(
-		TEXT("MouseX"), this, &ThisClass::OnZoomInput);
+		TEXT("MouseWheel"), this, &ThisClass::OnZoomInput);
 
 
 	InputComponent->BindAction(
 		TEXT("Jump"), EInputEvent::IE_Pressed, this, &ThisClass::OnJumpInput);
+
+	InputComponent->BindAction(
+		TEXT("Acceleration"), EInputEvent::IE_Pressed, this, &ThisClass::OnAccelerationInput);
 
 
 	
@@ -55,6 +58,12 @@ void AGamePlayerController::OnJumpInput()
 {
 	AGameCharacter* gameCharacter = Cast<AGameCharacter>(GetPawn());
 	gameCharacter->OnJumpInput();
+}
+
+void AGamePlayerController::OnAccelerationInput()
+{
+	AGameCharacter* gameCharacter = Cast<AGameCharacter>(GetPawn());
+	gameCharacter->OnAccerlationInput();
 }
 
 void AGamePlayerController::OnMouseXInput(float axis)

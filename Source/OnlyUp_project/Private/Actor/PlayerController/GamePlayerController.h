@@ -29,9 +29,13 @@ private:
 	// 점프 입력 시 호출됩니다.
 	void OnJumpInput();
 
+	// 가속 입력 시 호출됩니다.
+	void OnAccelerationInput();
+
 	void OnMouseXInput(float axis);
 	void OnMouseYInput(float axis);
 	void OnZoomInput(float axis);
+
 
 
 

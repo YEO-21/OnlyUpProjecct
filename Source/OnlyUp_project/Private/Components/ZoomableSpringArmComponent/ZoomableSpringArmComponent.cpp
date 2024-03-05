@@ -8,6 +8,7 @@ UZoomableSpringArmComponent::UZoomableSpringArmComponent()
 	ZoomLengthMax = 600.0f;
 }
 
+
 void UZoomableSpringArmComponent::DoZoomInOut(float axis)
 {
 	TargetArmLength -= axis * ZoomMultiplier;

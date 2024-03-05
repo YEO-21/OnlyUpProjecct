@@ -10,6 +10,8 @@ class AGameCharacter : public ACharacter
 	GENERATED_BODY()
 
 private:
+
+
 	UPROPERTY(VisibleAnywhere, meta  = (AllowrprivateAccess = "true"))
 	class UPlayerCharacterMovementComponent* MovementComponent;
 
@@ -27,7 +29,11 @@ public:
 	void OnHorizontalInput(float axis);
 	void OnVerticalInput(float axis);
 	void OnJumpInput();
+	void OnAccerlationInput();
+
 	void OnZoomCamera(float axis);
+
+	void UpdateAnimParams();
 
 protected:
 	virtual void BeginPlay() override;
@@ -36,5 +42,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	
 
 };
