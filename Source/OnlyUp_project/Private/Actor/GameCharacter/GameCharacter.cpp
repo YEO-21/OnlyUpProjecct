@@ -1,6 +1,8 @@
 #include "Actor/GameCharacter/GameCharacter.h"
 
-#include "Components/PlayerCharacterMovementComponent.h"
+#include "Components/PlayerCharacterMovementComponent/PlayerCharacterMovementComponent.h"
+#include "Components/ZoomableSpringArmComponent/ZoomableSpringArmComponent.h"
+
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
 
@@ -12,8 +14,17 @@ AGameCharacter::AGameCharacter()
 	MovementComponent = CreateDefaultSubobject<UPlayerCharacterMovementComponent>(
 		TEXT("MOVEMENT_COMP"));
 
+	SpringArmComponent = CreateDefaultSubobject<UZoomableSpringArmComponent>(
+		TEXT("SPRINGARM_COMP"));
+
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(
 		TEXT("CAMERA_COMP"));
+
+	
+	SpringArmComponent->SetupAttachment(GetRootComponent());
+	CameraComponent->SetupAttachment(SpringArmComponent);
+
+
 
 	// 컨트롤러 Yaw 회전 사용 X
 	bUseControllerRotationYaw = false;
@@ -24,7 +35,7 @@ AGameCharacter::AGameCharacter()
 	// 회전 속도 설정
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 450.f, 0.0f);
 
-
+	SpringArmComponent->bUsePawnControlRotation = true;
 
 
 }
@@ -42,6 +53,11 @@ void AGameCharacter::OnVerticalInput(float axis)
 void AGameCharacter::OnJumpInput()
 {
 	MovementComponent->OnJump();
+}
+
+void AGameCharacter::OnZoomCamera(float axis)
+{
+	SpringArmComponent->DoZoomInOut(axis);
 }
 
 void AGameCharacter::BeginPlay()

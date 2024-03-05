@@ -16,6 +16,9 @@ private:
 	UPROPERTY(VisibleAnywhere, meta = (AllowrprivateAccess = "true"))
 	class UCameraComponent* CameraComponent;
 
+	UPROPERTY(VisibleAnywhere, meta = (AllowrprivateAccess = "true"))
+	class UZoomableSpringArmComponent* SpringArmComponent;
+
 
 
 public:
@@ -24,6 +27,7 @@ public:
 	void OnHorizontalInput(float axis);
 	void OnVerticalInput(float axis);
 	void OnJumpInput();
+	void OnZoomCamera(float axis);
 
 protected:
 	virtual void BeginPlay() override;
