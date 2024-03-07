@@ -32,6 +32,9 @@ private:
 	// 가속 입력 시 호출됩니다.
 	void OnAccelerationInput();
 
+	// 걷기 상태로 설정될 때 호출됩니다.
+	void OnWalkInput();
+
 	void OnMouseXInput(float axis);
 	void OnMouseYInput(float axis);
 	void OnZoomInput(float axis);

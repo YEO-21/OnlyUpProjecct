@@ -30,6 +30,7 @@ public:
 	void OnVerticalInput(float axis);
 	void OnJumpInput();
 	void OnAccerlationInput();
+	void OnWalkInput();
 
 	void OnZoomCamera(float axis);
 

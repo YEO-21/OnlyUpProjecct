@@ -23,5 +23,8 @@ public:
 	void VerticalMove(float axis);
 	void OnJump();
 
+private:
+	void UpdateJumpVelocity();
+
 		
 };

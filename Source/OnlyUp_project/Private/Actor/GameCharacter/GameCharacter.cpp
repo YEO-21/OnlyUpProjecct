@@ -60,7 +60,7 @@ AGameCharacter::AGameCharacter()
 
 	SpringArmComponent->bUsePawnControlRotation = true;
 
-	GetCharacterMovement()->MaxWalkSpeed = 400.0f;
+	GetCharacterMovement()->MaxWalkSpeed = 300.0f;
 
 
 }
@@ -104,6 +104,11 @@ void AGameCharacter::OnJumpInput()
 void AGameCharacter::OnAccerlationInput()
 {
 	GetCharacterMovement()->MaxWalkSpeed = 600.0f;
+}
+
+void AGameCharacter::OnWalkInput()
+{
+	GetCharacterMovement()->MaxWalkSpeed = 300.0f;
 }
 
 void AGameCharacter::OnZoomCamera(float axis)

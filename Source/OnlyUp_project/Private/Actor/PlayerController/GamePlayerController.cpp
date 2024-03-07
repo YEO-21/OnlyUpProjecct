@@ -31,6 +31,9 @@ void AGamePlayerController::SetupInputComponent()
 	InputComponent->BindAction(
 		TEXT("Acceleration"), EInputEvent::IE_Pressed, this, &ThisClass::OnAccelerationInput);
 
+	InputComponent->BindAction(
+		TEXT("Acceleration"), EInputEvent::IE_Released, this, &ThisClass::OnWalkInput);
+
 
 	
 }
@@ -64,6 +67,12 @@ void AGamePlayerController::OnAccelerationInput()
 {
 	AGameCharacter* gameCharacter = Cast<AGameCharacter>(GetPawn());
 	gameCharacter->OnAccerlationInput();
+}
+
+void AGamePlayerController::OnWalkInput()
+{
+	AGameCharacter* gameCharacter = Cast<AGameCharacter>(GetPawn());
+	gameCharacter->OnWalkInput();
 }
 
 void AGamePlayerController::OnMouseXInput(float axis)
