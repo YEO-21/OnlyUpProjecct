@@ -31,6 +31,7 @@ AGameCharacter::AGameCharacter()
 		GetMesh()->SetAnimClass(ANIMBP_PLAYER_CHARACTER.Class);
 	}
 
+	
 
 
 	// 이동 컴포넌트 추가
@@ -58,9 +59,14 @@ AGameCharacter::AGameCharacter()
 	// 회전 속도 설정
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 450.f, 0.0f);
 
+	// 최대 걷기 속도 설정
+	GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+
 	SpringArmComponent->bUsePawnControlRotation = true;
 
-	GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+
+	// 오버랩 이벤트 바인딩
+	//OnActorBeginOverlap.AddDynamic(this, &ThisClass::PlayerRespawn);
 
 
 }
@@ -69,8 +75,15 @@ void AGameCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+	InitializedPlayerLocation = GetActorLocation();
 
+}
+
+void AGameCharacter::Destroyed()
+{
+	Super::Destroyed();
+
+	
 }
 
 void AGameCharacter::Tick(float DeltaTime)
@@ -78,6 +91,8 @@ void AGameCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	UpdateAnimParams();
+
+	
 }
 
 void AGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -85,6 +100,8 @@ void AGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+
+
 
 void AGameCharacter::OnHorizontalInput(float axis)
 {
@@ -128,15 +145,14 @@ void AGameCharacter::UpdateAnimParams()
 	FVector Velocity = GetVelocity();
 	Velocity.Z = 0.0f;
 	float speed = Velocity.Length();
-	UE_LOG(LogTemp, Warning, TEXT("speed = %f"), speed);
+	//UE_LOG(LogTemp, Warning, TEXT("speed = %f"), speed);
 	animInst->SetCurrentSpeed(speed);
 
 	bool IsOnGround = GetMovementComponent()->IsMovingOnGround();
 	animInst->SetGroundState(IsOnGround);
 
-	
+
 
 }
-
 
 

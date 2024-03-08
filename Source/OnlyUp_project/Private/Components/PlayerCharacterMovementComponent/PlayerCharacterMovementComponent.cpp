@@ -16,7 +16,7 @@ void UPlayerCharacterMovementComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+	GameCharacter = Cast<AGameCharacter>(GetOwner());
 }
 
 
@@ -24,7 +24,6 @@ void UPlayerCharacterMovementComponent::TickComponent(float DeltaTime, ELevelTic
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	UpdateJumpVelocity();
 
 }
 
@@ -50,24 +49,12 @@ void UPlayerCharacterMovementComponent::VerticalMove(float axis)
 void UPlayerCharacterMovementComponent::OnJump()
 {
 	AGameCharacter* gameCharacter = Cast<AGameCharacter>(GetOwner());
+	float maxWalkspeed = gameCharacter->GetCharacterMovement()->MaxWalkSpeed;
+	float jumpZvelocity = gameCharacter->GetCharacterMovement()->JumpZVelocity;
+
+	if (maxWalkspeed > 300.0f) gameCharacter->GetCharacterMovement()->JumpZVelocity = 550.0f;
+	else gameCharacter->GetCharacterMovement()->JumpZVelocity = 400.f;
+
 	gameCharacter->Jump();
-}
-
-void UPlayerCharacterMovementComponent::UpdateJumpVelocity()
-{
-	AGameCharacter* gameCharacter = Cast<AGameCharacter>(GetOwner());
-	float walkspeed = gameCharacter->GetCharacterMovement()->MaxWalkSpeed;
-
-	
-	if (walkspeed > 300.0f)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("JumpZVelocity is [%.2f]"), gameCharacter->GetCharacterMovement()->JumpZVelocity);
-		gameCharacter->GetCharacterMovement()->JumpZVelocity = 550.0f;
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("JumpZVelocity is [%.2f]"), gameCharacter->GetCharacterMovement()->JumpZVelocity);
-		gameCharacter->GetCharacterMovement()->JumpZVelocity = 450.0f;
-	}
 }
 

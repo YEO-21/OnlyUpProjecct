@@ -9,8 +9,11 @@ class AGameCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-private:
 
+private:
+	// 플레이어 스타트 위치
+	UPROPERTY()
+	FVector InitializedPlayerLocation;
 
 	UPROPERTY(VisibleAnywhere, meta  = (AllowrprivateAccess = "true"))
 	class UPlayerCharacterMovementComponent* MovementComponent;
@@ -36,13 +39,18 @@ public:
 
 	void UpdateAnimParams();
 
+
+
 protected:
 	virtual void BeginPlay() override;
+
+	virtual void Destroyed() override;
 
 public:	
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 
 	
 

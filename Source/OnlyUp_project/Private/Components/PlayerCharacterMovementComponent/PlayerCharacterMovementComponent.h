@@ -10,6 +10,11 @@ class UPlayerCharacterMovementComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+protected:
+	UPROPERTY()
+	class AGameCharacter* GameCharacter;
+
+
 public:	
 	UPlayerCharacterMovementComponent();
 
@@ -23,8 +28,6 @@ public:
 	void VerticalMove(float axis);
 	void OnJump();
 
-private:
-	void UpdateJumpVelocity();
 
 		
 };
