@@ -20,7 +20,13 @@ void UObstacleMovementComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+	MovingBlock= Cast<AMovingBlockObstacle>(GetOwner());
+
+	MiddleLocation = MovingBlock->GetActorLocation();
+	RightLocation = MiddleLocation + FVector(0.0f, 150.0f, 0.0f);
+	LeftLocation = MiddleLocation - FVector(0.0f, 150.0f, 0.0f);
+
+
 	// ...
 	
 }
@@ -31,38 +37,41 @@ void UObstacleMovementComponent::TickComponent(float DeltaTime, ELevelTick TickT
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	AMovingBlockObstacle* movingblock = Cast<AMovingBlockObstacle>(GetOwner());
-	MoveLocation(movingblock->GetActorLocation());
+	//UE_LOG(LogTemp, Warning, TEXT("%.2f"), MovingBlock->GetActorLocation().Y);
+	MoveBlock(MovingBlock->GetActorLocation());
+	
 
 	
 }
 
-void UObstacleMovementComponent::MoveLocation(FVector newLocation)
+void UObstacleMovementComponent::MoveBlock(FVector blocklocation)
 {
-	AMovingBlockObstacle* movingblock = Cast<AMovingBlockObstacle>(GetOwner());
-	FVector currentLocation = movingblock->GetActorLocation();
-	FVector rightLocation = currentLocation + (0.0f, 100.0f, 0.0f);
-	FVector leftLocation = currentLocation - (0.0f, 100.0f, 0.0f);
-
-	if (currentLocation.Y < rightLocation.Y && IsIncreased)
+	// 블록의 위치가 증가합니다.
+	if (IsIncreased)
 	{
-		currentLocation.Y += 0.01f;
+		FVector newLocation = blocklocation + FVector(0.0f, 5.0f, 0.0f);
+		MovingBlock->SetActorLocation(newLocation);
 	}
-	else if (currentLocation.Y == rightLocation.Y)
+	
+	// RightVector 위치에 도달하면 증가를 멈춥니다.
+	if (MovingBlock->GetActorLocation() == RightLocation)
 	{
 		IsIncreased = false;
 	}
-	else if (currentLocation.Y > leftLocation.Y && !IsIncreased)
+
+	// 블록의 위치를 감소시킵니다.
+	if (!IsIncreased)
 	{
-		currentLocation.Y -= 0.01f;
+
+		FVector newLocation = blocklocation - FVector(0.0f, 5.0f, 0.0f);
+		MovingBlock->SetActorLocation(newLocation);
 	}
-	else if (currentLocation.Y == leftLocation.Y)
+
+	// LeftVector 위치에 도달하면 감소를 멈춥니다.
+	if (MovingBlock->GetActorLocation() == LeftLocation)
 	{
 		IsIncreased = true;
 	}
-
-	movingblock->SetActorLocation(currentLocation);
-
 
 }
 

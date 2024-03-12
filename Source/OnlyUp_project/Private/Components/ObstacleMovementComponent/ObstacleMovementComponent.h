@@ -14,7 +14,15 @@ class UObstacleMovementComponent : public UActorComponent
 
 private:
 	UPROPERTY()
+	class AMovingBlockObstacle* MovingBlock;
+
+	UPROPERTY()
 	bool IsIncreased;
+
+
+	FVector RightLocation;
+	FVector LeftLocation;
+	FVector MiddleLocation;
 
 	
 
@@ -32,6 +40,6 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	void MoveLocation(FVector newLocation);
+	void MoveBlock(FVector blocklocation);
 		
 };
