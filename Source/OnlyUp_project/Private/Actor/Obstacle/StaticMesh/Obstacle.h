@@ -14,9 +14,6 @@ class AObstacle : public AStaticMeshActor
 {
 	GENERATED_BODY()
 
-protected:
-	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
-	class UObstacleMovementComponent* ObstacleMovementComponent;
 
 
 public:

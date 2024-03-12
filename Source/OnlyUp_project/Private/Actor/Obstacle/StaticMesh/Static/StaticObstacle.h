@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Actor/Obstacle/Obstacle.h"
-#include "DynamicObstacle.generated.h"
+#include "Actor/Obstacle/StaticMesh/Obstacle.h"
+#include "StaticObstacle.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ADynamicObstacle : public AObstacle
+class AStaticObstacle : public AObstacle
 {
 	GENERATED_BODY()
 	

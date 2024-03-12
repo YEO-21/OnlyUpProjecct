@@ -1,4 +1,4 @@
-#include "Actor/Obstacle/Obstacle.h"\
+#include "Actor/Obstacle/StaticMesh/Obstacle.h"\
 
 #include "Components/ObstacleMovementComponent/ObstacleMovementComponent.h"
 
@@ -8,8 +8,7 @@
 
 AObstacle::AObstacle()
 {
-	ObstacleMovementComponent = CreateDefaultSubobject<UObstacleMovementComponent>(
-		TEXT("OB_MOVE_COMP"));
+	
 
 
 }

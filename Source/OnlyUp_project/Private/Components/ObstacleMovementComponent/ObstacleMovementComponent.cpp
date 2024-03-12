@@ -1,6 +1,6 @@
 #include "Components/ObstacleMovementComponent/ObstacleMovementComponent.h"
 
-#include "Actor/Obstacle/Dynamic/MovingBlock/MovingBlockObstacle.h"
+#include "Actor/Obstacle/StaticMesh/Dynamic/MovingBlock/MovingBlockObstacle.h"
 
 // Sets default values for this component's properties
 UObstacleMovementComponent::UObstacleMovementComponent()

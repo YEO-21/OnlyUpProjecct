@@ -1,4 +1,4 @@
-#include "Actor/Obstacle/Dynamic/MovingBlock/MovingBlockObstacle.h"
+#include "Actor/Obstacle/StaticMesh/Dynamic/MovingBlock/MovingBlockObstacle.h"
 #include "Components/StaticMeshComponent.h"
 
 AMovingBlockObstacle::AMovingBlockObstacle()
@@ -14,6 +14,8 @@ AMovingBlockObstacle::AMovingBlockObstacle()
 	{
 		staticmeshComponent->SetStaticMesh(SM_MOVINGBLOCK.Object);
 	}
+
+
 
 		
 }

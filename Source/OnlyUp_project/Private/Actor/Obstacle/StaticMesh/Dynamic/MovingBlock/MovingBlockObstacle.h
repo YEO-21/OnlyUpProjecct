@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Actor/Obstacle/Dynamic/DynamicObstacle.h"
+#include "Actor/Obstacle/StaticMesh/Dynamic/DynamicObstacle.h"
 #include "MovingBlockObstacle.generated.h"
 
 /**
