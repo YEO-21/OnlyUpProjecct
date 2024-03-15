@@ -14,6 +14,10 @@ class UBTService_DetectPlayerCharacter : public UBTService
 {
 	GENERATED_BODY()
 
+private:
+	UPROPERTY(VisibleAnywhere)
+	bool IsDetected;
+
 protected:
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 	FBlackboardKeySelector IsAttackRequestedKey;

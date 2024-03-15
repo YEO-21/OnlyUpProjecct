@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -11,19 +10,41 @@ class AControlledObstacle : public APawn
 {
 	GENERATED_BODY()
 
-public:
-	// Sets default values for this pawn's properties
-	AControlledObstacle();
 
 protected:
-	// Called when the game starts or when spawned
+	// 장애물 코드
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName ObstacleCode;
+
+	// 장애물 정보 구조체를 나타냅니다.
+	struct FObstacleData* ObstacleData;
+
+	// 장애물 데이터 테이블을 나타냅니다.
+	class UDataTable* ObstacleDataTable;
+
+
+
+public:
+	AControlledObstacle();
+
 	virtual void BeginPlay() override;
 
+	// 폰이 빙의가 되었을 때 호출되는 함수입니다.
+	virtual void PossessedBy(AController* NewController) override;
+
+
+
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
+private:
+	void InitializeObstacleData();
+
+protected:
+	virtual void SetObstacleController(TSubclassOf<class AObstacleController> controllerClass,
+		EAutoPossessAI possessType = EAutoPossessAI::PlacedInWorldOrSpawned);
 
 };
