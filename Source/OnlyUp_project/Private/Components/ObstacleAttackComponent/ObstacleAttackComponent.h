@@ -10,17 +10,40 @@ class UObstacleAttackComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+private:
+	UPROPERTY()
+	bool IsAttackRequested;
+
+
+	UPROPERTY()
+	bool IsAttacking;
+
+	UPROPERTY()
+	class AActor* CannonBomb;
+
+
+
+
+
+
 public:	
-	// Sets default values for this component's properties
 	UObstacleAttackComponent();
 
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	void AttackStart();
+	void AttackFinished();
+
+	FORCEINLINE bool GetAttackState() const
+	{
+		return IsAttacking;
+	}
+
+	void SetAttackRequested(bool isAttackRequested);
+
+
 };

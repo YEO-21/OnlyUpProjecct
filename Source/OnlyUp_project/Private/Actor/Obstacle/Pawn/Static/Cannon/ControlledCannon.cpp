@@ -1,4 +1,5 @@
 #include "Actor/Obstacle/Pawn/Static/Cannon/ControlledCannon.h"
+#include "Actor/ObstacleController/Cannon/CannonController.h"
 
 #include "Components/StaticMeshComponent.h"
 #include "Components/ObstacleAttackComponent/ObstacleAttackComponent.h"
@@ -27,13 +28,30 @@ AControlledCannon::AControlledCannon()
 		StaticMeshComponent->SetStaticMesh(SM_CANNON.Object);
 	}
 
+
+
 	// 장애물 공격 컴폰넌트 추가
 	ObstacleAttackComponent = CreateDefaultSubobject<UObstacleAttackComponent>(
 		TEXT("ATTACK_COMP"));
 
 
+	// 이동 컴포넌트 추가
+	CannonMovementComponent = CreateDefaultSubobject<UCannonMovementComponent>(
+		TEXT("MOVEMENT_COMP"));
+
+
+	SetObstacleController(ACannonController::StaticClass());
+
+
 	// 장애물 코드 
 	ObstacleCode = TEXT("000001");
 
+	
+}
+
+void AControlledCannon::OnPlayerCharacterDetected(AGameCharacter* gameCharacter)
+{
+	ACannonController* cannonController = Cast<ACannonController>(GetController());
+	cannonController->SetPlayerCharacterKey(gameCharacter);
 	
 }

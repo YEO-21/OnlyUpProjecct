@@ -1,6 +1,10 @@
 #include "AI/Service/BTService_DetectPlayerCharacter.h"
 
 #include "Actor/GameCharacter/GameCharacter.h"
+#include "Actor/ObstacleController/Cannon/CannonController.h"
+#include "Actor/Obstacle/Pawn/Static/Cannon/ControlledCannon.h"
+
+#include "Components/ObstacleAttackComponent/ObstacleAttackComponent.h"
 
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -11,8 +15,6 @@
 UBTService_DetectPlayerCharacter::UBTService_DetectPlayerCharacter()
 {
 	IsAttackRequestedKey.AddBoolFilter(this, GET_MEMBER_NAME_CHECKED(ThisClass, IsAttackRequestedKey));
-
-	IsDetected = false;
 }
 
 void UBTService_DetectPlayerCharacter::TickNode(
@@ -32,6 +34,8 @@ void UBTService_DetectPlayerCharacter::CheckArea(UBehaviorTreeComponent& ownerCo
 	// Get BlackboardComponent
 	UBlackboardComponent* blackboardComponent = ownerComponent.GetBlackboardComponent();
 
+	AControlledCannon* controlledPawn = Cast<AControlledCannon>(ownerController->GetPawn());
+
 	static FVector currentLocation = ownerController->GetPawn()->GetActorLocation();
 
 	// 충돌 타입 배열
@@ -43,7 +47,7 @@ void UBTService_DetectPlayerCharacter::CheckArea(UBehaviorTreeComponent& ownerCo
 
 
 	// 구 반지름
-	float radius = 1000.0f;
+	float radius = 5000.0f;
 
 
 	if (UKismetSystemLibrary::SphereOverlapActors(ownerComponent.GetOwner(),
@@ -54,59 +58,25 @@ void UBTService_DetectPlayerCharacter::CheckArea(UBehaviorTreeComponent& ownerCo
 	{
 		for (AActor* player : detectedActors)
 		{
-			IsDetected = true;
 
 			// 공격 요청
 			blackboardComponent->SetValueAsBool(IsAttackRequestedKey.SelectedKeyName, true);
 
-			// 플레이어 위치 확인
-			FVector playerLocation = player->GetActorLocation();
-			
-			playerLocation.Z = 0.0f;
+			AGameCharacter* playercharacter = Cast<AGameCharacter>(player);
 
-			// 대포의 앞 방향 벡터 
-			FVector cannonRightVec = ownerController->GetPawn()->GetActorRightVector();
-			cannonRightVec.Z = 0.0f;
-			//UE_LOG(LogTemp, Warning, TEXT("cannonRightVec.X = [%.2f]"), cannonForwardVec.X);
-			//UE_LOG(LogTemp, Warning, TEXT("cannonRightVec.Y = [%.2f]"), cannonForwardVec.Y);
+			// 감지된 객체가 플레이어로 인식함
+			controlledPawn->OnPlayerCharacterDetected(playercharacter);
 
-			// 대포에서 플레이어를 바라보는 방향 벡터
-			FVector cannonToPlayerVec = playerLocation - currentLocation;
-			cannonToPlayerVec.Z = 0.0f;
-			cannonToPlayerVec = cannonToPlayerVec.GetSafeNormal();
+			controlledPawn->GetObstacleAttackComponent()->SetAttackRequested(true);
 
-			float angle = FMath::RadiansToDegrees(
-				FMathf::ACos(FVector::DotProduct(cannonRightVec, cannonToPlayerVec)));
-
-			
-			 
-		
-			//UE_LOG(LogTemp, Warning, TEXT("angle is %.2f"), angle);
-
-			if (IsDetected)
-			{
-				FRotator cannonRotation = ownerController->GetPawn()->GetActorRotation();
-				UE_LOG(LogTemp, Warning, TEXT("cannonRotation is %.2f"), cannonRotation.Yaw);
-
-				if (cannonRotation.Yaw < angle)
-				{
-					//while (true)
-					//{
-					//	cannonRotation.Yaw += 0.1f;
-					//	//cannonRotation.Yaw = -angle;
-					//	ownerController->GetPawn()->SetActorRotation(cannonRotation);
-					//	IsDetected = false;
-					//	if (angle == cannonRotation.Yaw)
-					//		break;
-					//}
-				}
-				
-			}
-			
-
-			//UE_LOG(LogTemp, Warning, TEXT("Player is Detected!!"));
-
+			UE_LOG(LogTemp, Warning, TEXT("Player is Detected!"));
 		}
+
+	}
+	else
+	{
+		blackboardComponent->SetValueAsBool(IsAttackRequestedKey.SelectedKeyName, false);
+		UE_LOG(LogTemp, Warning, TEXT("Player is not Detected!"));
 
 	}
 

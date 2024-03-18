@@ -1,6 +1,7 @@
 #include "Actor/Obstacle/Pawn/ControlledObstacle.h"
 #include "Actor/ObstacleController/ObstacleController.h"
 
+
 #include "Structure/ObstacleData/ObstacleData.h"
 
 AControlledObstacle::AControlledObstacle()

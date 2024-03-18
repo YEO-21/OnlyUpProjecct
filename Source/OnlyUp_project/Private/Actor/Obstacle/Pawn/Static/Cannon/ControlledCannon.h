@@ -21,8 +21,26 @@ private:
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* StaticMeshComponent;
 
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	class UCannonMovementComponent* CannonMovementComponent;
+
 
 public:
 	AControlledCannon();
+
+
+	FORCEINLINE class UCannonMovementComponent* GetCannonMovementComponent() const
+	{
+		return CannonMovementComponent;
+	}
+
+	FORCEINLINE class UObstacleAttackComponent* GetObstacleAttackComponent() const
+	{
+		return ObstacleAttackComponent;
+	}
+
+
 	
+	void OnPlayerCharacterDetected(class AGameCharacter* gameCharacter);
+
 };

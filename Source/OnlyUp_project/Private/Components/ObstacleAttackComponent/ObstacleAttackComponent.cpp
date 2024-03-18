@@ -1,31 +1,62 @@
 #include "Components/ObstacleAttackComponent/ObstacleAttackComponent.h"
 
-// Sets default values for this component's properties
+#include "BehaviorTree/BlackboardComponent.h"
+
 UObstacleAttackComponent::UObstacleAttackComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+	IsAttacking = false;
+
+	ConstructorHelpers::FClassFinder<AActor> ACTOR_BOMB(
+		TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actor/Obstacle/BP_Bomb.BP_Bomb_C'"));
+
+	if (ACTOR_BOMB.Succeeded())
+	{
+		
+	}
+
+
+
 }
 
 
-// Called when the game starts
 void UObstacleAttackComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
 	
 }
 
 
-// Called every frame
 void UObstacleAttackComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	if (IsAttackRequested)
+	{
+		AttackStart();
+	}
+
+}
+
+void UObstacleAttackComponent::AttackStart()
+{
+
+
+
+
+
+
+
+}
+
+void UObstacleAttackComponent::AttackFinished()
+{
+}
+
+void UObstacleAttackComponent::SetAttackRequested(bool isAttackRequested)
+{
+	IsAttackRequested = isAttackRequested;
 }
 
