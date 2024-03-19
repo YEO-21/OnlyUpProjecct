@@ -12,20 +12,33 @@ AControlledCannon::AControlledCannon()
 	static ConstructorHelpers::FObjectFinder<UDataTable> DT_OBSTACLE(
 		TEXT("/Script/Engine.DataTable'/Game/Resources/DataTable/DT_Obstacle.DT_Obstacle'"));
 
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> SM_BOMB(
+		TEXT("/Script/Engine.StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 
-	if (DT_OBSTACLE.Succeeded())
-	{
-		ObstacleDataTable = DT_OBSTACLE.Object;
-	}
-	
 
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("STATIC_MESH_COMP"));
+	StaticMeshComponent->SetMobility(EComponentMobility::Movable);
+
+	CannonBomb = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CANNON_BOMB"));
+	CannonBomb->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
+	CannonBomb->SetMobility(EComponentMobility::Movable);
+	CannonBomb->SetSimulatePhysics(true);
 
 
 	if (SM_CANNON.Succeeded())
 	{
 		// 스태틱 메시 적용
 		StaticMeshComponent->SetStaticMesh(SM_CANNON.Object);
+	}
+
+	if (DT_OBSTACLE.Succeeded())
+	{
+		ObstacleDataTable = DT_OBSTACLE.Object;
+	}
+
+	if (SM_BOMB.Succeeded())
+	{
+		CannonBomb->SetStaticMesh(SM_BOMB.Object);
 	}
 
 
@@ -38,6 +51,8 @@ AControlledCannon::AControlledCannon()
 	// 이동 컴포넌트 추가
 	CannonMovementComponent = CreateDefaultSubobject<UCannonMovementComponent>(
 		TEXT("MOVEMENT_COMP"));
+
+	
 
 
 	SetObstacleController(ACannonController::StaticClass());

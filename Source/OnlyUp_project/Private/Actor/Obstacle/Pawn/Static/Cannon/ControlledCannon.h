@@ -24,6 +24,9 @@ private:
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	class UCannonMovementComponent* CannonMovementComponent;
 
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	class UStaticMeshComponent* CannonBomb;
+
 
 public:
 	AControlledCannon();
@@ -37,6 +40,11 @@ public:
 	FORCEINLINE class UObstacleAttackComponent* GetObstacleAttackComponent() const
 	{
 		return ObstacleAttackComponent;
+	}
+
+	FORCEINLINE class UStaticMeshComponent* GetCannonBomb() const
+	{
+		return CannonBomb;
 	}
 
 
