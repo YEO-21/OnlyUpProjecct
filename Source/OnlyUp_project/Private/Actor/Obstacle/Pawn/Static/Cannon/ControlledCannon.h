@@ -27,6 +27,15 @@ private:
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* CannonBomb;
 
+public:
+	// 대포가 공격한 시간
+	UPROPERTY()
+	float CannonAttackTime;
+
+	// 대포알의 처음 위치
+	UPROPERTY()
+	FVector InitialLocation;
+
 
 public:
 	AControlledCannon();

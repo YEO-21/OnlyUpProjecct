@@ -1,5 +1,7 @@
 #include "Components/ObstacleAttackComponent/ObstacleAttackComponent.h"
 
+#include "Actor/Obstacle/Pawn/Static/Cannon/ControlledCannon.h"
+
 #include "BehaviorTree/BlackboardComponent.h"
 
 UObstacleAttackComponent::UObstacleAttackComponent()
@@ -8,13 +10,7 @@ UObstacleAttackComponent::UObstacleAttackComponent()
 
 	IsAttacking = false;
 
-	ConstructorHelpers::FClassFinder<AActor> ACTOR_BOMB(
-		TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Actor/Obstacle/BP_Bomb.BP_Bomb_C'"));
-
-	if (ACTOR_BOMB.Succeeded())
-	{
-		
-	}
+	
 
 
 
@@ -25,7 +21,7 @@ void UObstacleAttackComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+	ControlledCannon = Cast<AControlledCannon>(GetOwner());
 }
 
 
@@ -42,9 +38,23 @@ void UObstacleAttackComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 
 void UObstacleAttackComponent::AttackStart()
 {
+	// 유효성 검사
+	if (!IsValid(ControlledCannon)) return;
 
+	// 현재 시간을 기록합니다.
+	float currentTime = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("currentTime = [%.2f]"), currentTime);
 
+	// 공격한 시간을 기록합니다.
+	float attackTime = ControlledCannon->CannonAttackTime;
+	UE_LOG(LogTemp, Warning, TEXT("attackTime = [%.2f]"), attackTime);
 
+	if (currentTime > attackTime + 20.0f)
+	{
+		// 대포알의 위치를 처음으로 설정합니다.
+		ControlledCannon->GetCannonBomb()->SetRelativeLocation(ControlledCannon->InitialLocation);
+		UE_LOG(LogTemp, Warning, TEXT("Time is Gone"));
+	}
 
 
 
@@ -53,6 +63,7 @@ void UObstacleAttackComponent::AttackStart()
 
 void UObstacleAttackComponent::AttackFinished()
 {
+
 }
 
 void UObstacleAttackComponent::SetAttackRequested(bool isAttackRequested)

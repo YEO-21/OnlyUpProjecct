@@ -69,14 +69,14 @@ void UBTService_DetectPlayerCharacter::CheckArea(UBehaviorTreeComponent& ownerCo
 
 			controlledPawn->GetObstacleAttackComponent()->SetAttackRequested(true);
 
-			UE_LOG(LogTemp, Warning, TEXT("Player is Detected!"));
+			//UE_LOG(LogTemp, Warning, TEXT("Player is Detected!"));
 		}
 
 	}
 	else
 	{
 		blackboardComponent->SetValueAsBool(IsAttackRequestedKey.SelectedKeyName, false);
-		UE_LOG(LogTemp, Warning, TEXT("Player is not Detected!"));
+		//UE_LOG(LogTemp, Warning, TEXT("Player is not Detected!"));
 
 	}
 

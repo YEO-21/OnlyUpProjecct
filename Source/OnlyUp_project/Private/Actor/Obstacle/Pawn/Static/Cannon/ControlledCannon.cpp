@@ -22,7 +22,12 @@ AControlledCannon::AControlledCannon()
 	CannonBomb = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CANNON_BOMB"));
 	CannonBomb->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
 	CannonBomb->SetMobility(EComponentMobility::Movable);
-	CannonBomb->SetSimulatePhysics(true);
+
+	InitialLocation = CannonBomb->GetRelativeLocation();
+	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.X = [%.2f]"), InitialLocation.X);
+	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Y = [%.2f]"), InitialLocation.Y);
+	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Z = [%.2f]"), InitialLocation.Z);
+	//CannonBomb->SetSimulatePhysics(true);
 
 
 	if (SM_CANNON.Succeeded())

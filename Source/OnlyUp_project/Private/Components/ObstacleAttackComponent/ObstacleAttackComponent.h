@@ -22,6 +22,9 @@ private:
 	class AActor* CannonBomb;
 
 
+	class AControlledCannon* ControlledCannon;
+
+
 
 
 
@@ -37,6 +40,8 @@ public:
 
 	void AttackStart();
 	void AttackFinished();
+
+
 
 	FORCEINLINE bool GetAttackState() const
 	{

@@ -29,7 +29,7 @@ void UCannonMovementComponent::TurnningSmooth(float dt)
 {
 	// 현재 회전값
 	FRotator currentRotation = Cannon->GetActorRotation();
-	UE_LOG(LogTemp, Warning, TEXT("currentRotation.yaw is [%.2f]"), currentRotation.Yaw);
+	//UE_LOG(LogTemp, Warning, TEXT("currentRotation.yaw is [%.2f]"), currentRotation.Yaw);
 
 	// 목표 회전값
 	FRotator targetRotation = FRotator(0.0f, TargetYawAngle, 0.0f);
