@@ -35,11 +35,12 @@ EBTNodeResult::Type UBTTask_CannonAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 
 	FVector direction = (target->GetActorLocation() - controlledPawn->GetActorLocation());
 	direction.Z = 0.0f;
-	//direction = direction.GetSafeNormal();
+	direction = direction.GetSafeNormal();
+	direction *= 200.0f;
+
 
 
 	UStaticMeshComponent* cannonbomb = controlledPawn->GetCannonBomb();
-
 
 	cannonbomb->SetSimulatePhysics(true);
 	cannonbomb->AddImpulse(direction, NAME_None, true);
@@ -47,6 +48,7 @@ EBTNodeResult::Type UBTTask_CannonAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 	// 대포가 공격한 시간을 기록합니다.
 	controlledPawn->CannonAttackTime = GetWorld()->GetTimeSeconds();
 	
+	//blackboardComponent->SetValueAsBool(TEXT("IsAttacking"), false);
 
 
 	return EBTNodeResult::Type::Succeeded;

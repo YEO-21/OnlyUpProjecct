@@ -19,6 +19,14 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Blackboard)
 	FBlackboardKeySelector IsAttackingKey;
 
+	// 공격을 설정하기 위한 시간
+	UPROPERTY()
+	float AttackTimes;
+
+	// 다시 회전하도록 설정하기 위해 필요한 시간
+	UPROPERTY()
+	float ResetTime;
+
 
 public:
 	UBTService_UpdateAttackState();
@@ -28,7 +36,7 @@ protected:
 		uint8* nodeMemory, float dt) override;
 
 private:
-	void UpdateAttackState(UBehaviorTreeComponent& ownerComponent);
+	void UpdateAttackState(UBehaviorTreeComponent& ownerComponent, float dt);
 
 
 };

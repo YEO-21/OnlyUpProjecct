@@ -10,9 +10,6 @@ UObstacleAttackComponent::UObstacleAttackComponent()
 
 	IsAttacking = false;
 
-	
-
-
 
 }
 
@@ -43,17 +40,18 @@ void UObstacleAttackComponent::AttackStart()
 
 	// 현재 시간을 기록합니다.
 	float currentTime = GetWorld()->GetTimeSeconds();
-	UE_LOG(LogTemp, Warning, TEXT("currentTime = [%.2f]"), currentTime);
+	//UE_LOG(LogTemp, Warning, TEXT("currentTime = [%.2f]"), currentTime);
 
 	// 공격한 시간을 기록합니다.
 	float attackTime = ControlledCannon->CannonAttackTime;
-	UE_LOG(LogTemp, Warning, TEXT("attackTime = [%.2f]"), attackTime);
+	//UE_LOG(LogTemp, Warning, TEXT("attackTime = [%.2f]"), attackTime);
 
-	if (currentTime > attackTime + 20.0f)
+	if (currentTime > attackTime + 10.0f)
 	{
 		// 대포알의 위치를 처음으로 설정합니다.
-		ControlledCannon->GetCannonBomb()->SetRelativeLocation(ControlledCannon->InitialLocation);
-		UE_LOG(LogTemp, Warning, TEXT("Time is Gone"));
+		ControlledCannon->GetCannonBomb()->SetRelativeLocation
+		(ControlledCannon->InitialLocation);
+		attackTime = 0.0f;
 	}
 
 

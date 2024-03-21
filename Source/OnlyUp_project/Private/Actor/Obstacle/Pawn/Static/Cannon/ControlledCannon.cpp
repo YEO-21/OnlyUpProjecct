@@ -23,12 +23,12 @@ AControlledCannon::AControlledCannon()
 	CannonBomb->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
 	CannonBomb->SetMobility(EComponentMobility::Movable);
 
-	InitialLocation = CannonBomb->GetRelativeLocation();
-	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.X = [%.2f]"), InitialLocation.X);
-	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Y = [%.2f]"), InitialLocation.Y);
-	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Z = [%.2f]"), InitialLocation.Z);
-	//CannonBomb->SetSimulatePhysics(true);
+	InitialLocation = StaticMeshComponent->GetSocketLocation(TEXT("Socket_CannonBomb"));
+	UE_LOG(LogTemp, Warning, TEXT("InitialLocation.X = [%.2f]"), InitialLocation.X);
+	UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Y = [%.2f]"), InitialLocation.Y);
+	UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Z = [%.2f]"), InitialLocation.Z);
 
+	
 
 	if (SM_CANNON.Succeeded())
 	{
