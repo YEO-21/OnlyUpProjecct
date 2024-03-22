@@ -38,7 +38,7 @@ EBTNodeResult::Type UBTTask_CannonAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 	direction = direction.GetSafeNormal();
 	direction *= 200.0f;
 
-
+	
 
 	UStaticMeshComponent* cannonbomb = controlledPawn->GetCannonBomb();
 

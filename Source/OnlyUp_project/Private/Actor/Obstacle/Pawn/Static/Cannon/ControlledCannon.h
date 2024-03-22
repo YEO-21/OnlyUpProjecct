@@ -36,6 +36,8 @@ public:
 	UPROPERTY()
 	FVector InitialLocation;
 
+	TArray<class UStaticMeshComponent*> Bombs;
+
 
 public:
 	AControlledCannon();
@@ -53,11 +55,19 @@ public:
 
 	FORCEINLINE class UStaticMeshComponent* GetCannonBomb() const
 	{
-		return CannonBomb;
+		return Bombs[0];
 	}
-
 
 	
 	void OnPlayerCharacterDetected(class AGameCharacter* gameCharacter);
+
+	
+	void RechargeCannonBomb();
+	void DestroyCannonBomb();
+
+
+protected:
+	virtual void Tick(float DeltaTime) override;
+
 
 };

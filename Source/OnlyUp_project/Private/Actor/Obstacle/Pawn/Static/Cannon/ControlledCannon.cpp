@@ -19,6 +19,8 @@ AControlledCannon::AControlledCannon()
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("STATIC_MESH_COMP"));
 	StaticMeshComponent->SetMobility(EComponentMobility::Movable);
 
+
+
 	CannonBomb = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CANNON_BOMB"));
 	CannonBomb->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
 	CannonBomb->SetMobility(EComponentMobility::Movable);
@@ -28,7 +30,7 @@ AControlledCannon::AControlledCannon()
 	UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Y = [%.2f]"), InitialLocation.Y);
 	UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Z = [%.2f]"), InitialLocation.Z);
 
-	
+
 
 	if (SM_CANNON.Succeeded())
 	{
@@ -46,6 +48,12 @@ AControlledCannon::AControlledCannon()
 		CannonBomb->SetStaticMesh(SM_BOMB.Object);
 	}
 
+	
+	for (int i = 0; i < 100; ++i)
+	{
+		Bombs.Add(CannonBomb);
+	}
+
 
 
 	// 장애물 공격 컴폰넌트 추가
@@ -57,7 +65,7 @@ AControlledCannon::AControlledCannon()
 	CannonMovementComponent = CreateDefaultSubobject<UCannonMovementComponent>(
 		TEXT("MOVEMENT_COMP"));
 
-	
+
 
 
 	SetObstacleController(ACannonController::StaticClass());
@@ -65,6 +73,13 @@ AControlledCannon::AControlledCannon()
 
 	// 장애물 코드 
 	ObstacleCode = TEXT("000001");
+
+}
+
+void AControlledCannon::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
 
 	
 }
@@ -75,3 +90,19 @@ void AControlledCannon::OnPlayerCharacterDetected(AGameCharacter* gameCharacter)
 	cannonController->SetPlayerCharacterKey(gameCharacter);
 	
 }
+
+
+
+void AControlledCannon::RechargeCannonBomb()
+{
+	Bombs[1] = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CANNON_BOMB"));
+	Bombs[1]->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
+	Bombs[1]->SetMobility(EComponentMobility::Movable);
+}
+
+void AControlledCannon::DestroyCannonBomb()
+{
+	Bombs[0]->DestroyComponent();
+
+}
+

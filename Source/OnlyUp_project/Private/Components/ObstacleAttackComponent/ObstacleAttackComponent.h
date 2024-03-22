@@ -19,10 +19,16 @@ private:
 	bool IsAttacking;
 
 	UPROPERTY()
+	bool IsReadyToRecharge;
+
+
+	UPROPERTY()
 	class AActor* CannonBomb;
 
 
 	class AControlledCannon* ControlledCannon;
+
+
 
 
 
@@ -41,6 +47,8 @@ public:
 	void AttackStart();
 	void AttackFinished();
 
+	void DestroyBomb();
+	void RechargeBomb();
 
 
 	FORCEINLINE bool GetAttackState() const
