@@ -19,7 +19,10 @@ private:
 	bool IsAttacking;
 
 	UPROPERTY()
-	bool IsReadyToRecharge;
+	bool IsTimeToResetBomb;
+
+	UPROPERTY()
+	float TargetTime;
 
 
 	UPROPERTY()

@@ -27,6 +27,8 @@ private:
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* CannonBomb;
 
+	
+
 public:
 	// 대포가 공격한 시간
 	UPROPERTY()
@@ -36,7 +38,7 @@ public:
 	UPROPERTY()
 	FVector InitialLocation;
 
-	TArray<class UStaticMeshComponent*> Bombs;
+	
 
 
 public:
@@ -55,19 +57,20 @@ public:
 
 	FORCEINLINE class UStaticMeshComponent* GetCannonBomb() const
 	{
-		return Bombs[0];
+		return CannonBomb;
 	}
 
 	
 	void OnPlayerCharacterDetected(class AGameCharacter* gameCharacter);
-
 	
-	void RechargeCannonBomb();
-	void DestroyCannonBomb();
 
 
 protected:
 	virtual void Tick(float DeltaTime) override;
+
+
+public:
+	void ResetCannonBombLocation();
 
 
 };

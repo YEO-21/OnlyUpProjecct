@@ -25,10 +25,11 @@ AControlledCannon::AControlledCannon()
 	CannonBomb->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
 	CannonBomb->SetMobility(EComponentMobility::Movable);
 
-	InitialLocation = StaticMeshComponent->GetSocketLocation(TEXT("Socket_CannonBomb"));
-	UE_LOG(LogTemp, Warning, TEXT("InitialLocation.X = [%.2f]"), InitialLocation.X);
-	UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Y = [%.2f]"), InitialLocation.Y);
-	UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Z = [%.2f]"), InitialLocation.Z);
+
+	InitialLocation = CannonBomb->GetRelativeLocation();
+	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.X = [%.2f]"), InitialLocation.X);
+	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Y = [%.2f]"), InitialLocation.Y);
+	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Z = [%.2f]"), InitialLocation.Z);
 
 
 
@@ -49,13 +50,6 @@ AControlledCannon::AControlledCannon()
 	}
 
 	
-	for (int i = 0; i < 100; ++i)
-	{
-		Bombs.Add(CannonBomb);
-	}
-
-
-
 	// 장애물 공격 컴폰넌트 추가
 	ObstacleAttackComponent = CreateDefaultSubobject<UObstacleAttackComponent>(
 		TEXT("ATTACK_COMP"));
@@ -84,6 +78,14 @@ void AControlledCannon::Tick(float DeltaTime)
 	
 }
 
+void AControlledCannon::ResetCannonBombLocation()
+{
+	CannonBomb->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
+	CannonBomb->SetRelativeLocation(InitialLocation);
+
+
+}
+
 void AControlledCannon::OnPlayerCharacterDetected(AGameCharacter* gameCharacter)
 {
 	ACannonController* cannonController = Cast<ACannonController>(GetController());
@@ -93,16 +95,4 @@ void AControlledCannon::OnPlayerCharacterDetected(AGameCharacter* gameCharacter)
 
 
 
-void AControlledCannon::RechargeCannonBomb()
-{
-	Bombs[1] = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CANNON_BOMB"));
-	Bombs[1]->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
-	Bombs[1]->SetMobility(EComponentMobility::Movable);
-}
-
-void AControlledCannon::DestroyCannonBomb()
-{
-	Bombs[0]->DestroyComponent();
-
-}
 

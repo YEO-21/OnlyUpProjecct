@@ -9,8 +9,6 @@ UObstacleAttackComponent::UObstacleAttackComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	IsAttacking = true;
-
-	IsReadyToRecharge =  false;
 }
 
 
@@ -29,15 +27,9 @@ void UObstacleAttackComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 
 	float currentTime = GetWorld()->GetTimeSeconds();
 
-	if ((currentTime > ControlledCannon->CannonAttackTime + 20.0f) && IsAttacking)
+	if (IsAttacking)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Bomb is destroyed."));
-		DestroyBomb();
-	}	
-
-	if (IsReadyToRecharge)
-	{
-		RechargeBomb();
+		AttackStart();
 	}
 
 }
@@ -49,21 +41,23 @@ void UObstacleAttackComponent::AttackStart()
 
 	// 현재 시간을 기록합니다.
 	float currentTime = GetWorld()->GetTimeSeconds();
-	//UE_LOG(LogTemp, Warning, TEXT("currentTime = [%.2f]"), currentTime);
 
-	// 공격한 시간을 기록합니다.
-	float attackTime = ControlledCannon->CannonAttackTime;
-	//UE_LOG(LogTemp, Warning, TEXT("attackTime = [%.2f]"), attackTime);
-
-	if (currentTime > attackTime + 10.0f)
+	if (!IsTimeToResetBomb)
 	{
-		// 대포알의 위치를 처음으로 설정합니다.
-		ControlledCannon->GetCannonBomb()->SetRelativeLocation
-		(ControlledCannon->InitialLocation);
-		attackTime = 0.0f;
+		TargetTime = currentTime + 5.0f;
+		IsTimeToResetBomb = true;
 	}
+	UE_LOG(LogTemp, Warning, TEXT("currentTime is %.2f"), currentTime);
+	UE_LOG(LogTemp, Warning, TEXT("TargetTime is %.2f"), TargetTime);
 
 
+
+	if (currentTime > TargetTime)
+	{
+		IsTimeToResetBomb = false;
+		UE_LOG(LogTemp, Warning, TEXT("Attack!"));
+		ControlledCannon->ResetCannonBombLocation();
+	}
 
 
 }
@@ -73,24 +67,6 @@ void UObstacleAttackComponent::AttackFinished()
 
 }
 
-void UObstacleAttackComponent::DestroyBomb()
-{
-	AControlledCannon* cannon = Cast<AControlledCannon>(GetOwner());
-
-	cannon->DestroyCannonBomb();
-
-	IsAttacking = false;
-	
-	IsReadyToRecharge = true;
-}
-
-void UObstacleAttackComponent::RechargeBomb()
-{
-	AControlledCannon* cannon = Cast<AControlledCannon>(GetOwner());
-
-	cannon->RechargeCannonBomb();
-	IsReadyToRecharge = false;
-}
 
 void UObstacleAttackComponent::SetAttackRequested(bool isAttackRequested)
 {
