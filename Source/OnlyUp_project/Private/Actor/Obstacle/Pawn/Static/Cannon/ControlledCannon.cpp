@@ -26,10 +26,13 @@ AControlledCannon::AControlledCannon()
 	CannonBomb->SetMobility(EComponentMobility::Movable);
 
 
-	InitialLocation = CannonBomb->GetRelativeLocation();
-	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.X = [%.2f]"), InitialLocation.X);
-	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Y = [%.2f]"), InitialLocation.Y);
-	//UE_LOG(LogTemp, Warning, TEXT("InitialLocation.Z = [%.2f]"), InitialLocation.Z);
+
+	
+	InitialLocation = StaticMeshComponent->GetSocketLocation(TEXT("Socket_CannonBomb"));
+	//InitialLocation.Z += 130.0f;
+	UE_LOG(LogTemp, Warning, TEXT("InitialLocation1.X = [%.2f]"), InitialLocation.X);
+	UE_LOG(LogTemp, Warning, TEXT("InitialLocation2.Y = [%.2f]"), InitialLocation.Y);
+	UE_LOG(LogTemp, Warning, TEXT("InitialLocation3.Z = [%.2f]"), InitialLocation.Z);
 
 
 
@@ -80,9 +83,8 @@ void AControlledCannon::Tick(float DeltaTime)
 
 void AControlledCannon::ResetCannonBombLocation()
 {
-	CannonBomb->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
 	CannonBomb->SetRelativeLocation(InitialLocation);
-
+	//CannonBomb->ResetRelativeTransform();
 
 }
 
