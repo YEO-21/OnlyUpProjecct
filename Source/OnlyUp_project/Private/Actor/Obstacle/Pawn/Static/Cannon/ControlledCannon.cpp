@@ -19,6 +19,9 @@ AControlledCannon::AControlledCannon()
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("STATIC_MESH_COMP"));
 	StaticMeshComponent->SetMobility(EComponentMobility::Movable);
 
+	SampleComp = CreateDefaultSubobject<USceneComponent>(TEXT("SAMPLE_COMP"));
+	SampleComp->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
+	SetRootComponent(SampleComp);
 
 
 	CannonBomb = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CANNON_BOMB"));
@@ -26,10 +29,11 @@ AControlledCannon::AControlledCannon()
 	CannonBomb->SetMobility(EComponentMobility::Movable);
 
 
-
 	
-	InitialLocation = StaticMeshComponent->GetSocketLocation(TEXT("Socket_CannonBomb"));
-	//InitialLocation.Z += 130.0f;
+	
+	InitialLocation = SampleComp->GetComponentLocation(); // WORLD
+	//InitialLocation = SampleComp->GetRelativeLocation(); // LOCAL
+	//InitialLocation.Z += 65.0f;
 	UE_LOG(LogTemp, Warning, TEXT("InitialLocation1.X = [%.2f]"), InitialLocation.X);
 	UE_LOG(LogTemp, Warning, TEXT("InitialLocation2.Y = [%.2f]"), InitialLocation.Y);
 	UE_LOG(LogTemp, Warning, TEXT("InitialLocation3.Z = [%.2f]"), InitialLocation.Z);
@@ -83,8 +87,16 @@ void AControlledCannon::Tick(float DeltaTime)
 
 void AControlledCannon::ResetCannonBombLocation()
 {
-	CannonBomb->SetRelativeLocation(InitialLocation);
-	//CannonBomb->ResetRelativeTransform();
+	FVector socketLocation = StaticMeshComponent->GetSocketLocation(TEXT("Socket_CannonBomb"));
+	UE_LOG(LogTemp, Warning, TEXT("socketLocation.X = [%.2f]"), socketLocation.X);
+	UE_LOG(LogTemp, Warning, TEXT("socketLocation.Y = [%.2f]"), socketLocation.Y);
+	UE_LOG(LogTemp, Warning, TEXT("socketLocation.Z = [%.2f]"), socketLocation.Z);
+
+
+	//UE_LOG(LogTemp, Warning, TEXT("socketLocation.X = [%.2f]"), socketLocation.X);
+
+	CannonBomb->SetWorldLocation(socketLocation);
+	CannonBomb->SetSimulatePhysics(false);
 
 }
 
