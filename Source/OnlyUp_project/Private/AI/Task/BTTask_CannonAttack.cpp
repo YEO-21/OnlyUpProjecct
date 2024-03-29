@@ -10,6 +10,13 @@ UBTTask_CannonAttack::UBTTask_CannonAttack()
 	TargetActor.AddObjectFilter(this, GET_MEMBER_NAME_CHECKED(ThisClass, TargetActor), UObject::StaticClass());
 
 	IsAttackRequested.AddBoolFilter(this, GET_MEMBER_NAME_CHECKED(ThisClass, IsAttackRequested));
+
+	bNotifyTick = true;
+}
+
+void UBTTask_CannonAttack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+{
+
 }
 
 EBTNodeResult::Type UBTTask_CannonAttack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
@@ -44,10 +51,11 @@ EBTNodeResult::Type UBTTask_CannonAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 
 	cannonbomb->SetSimulatePhysics(true);
 	cannonbomb->AddImpulse(direction, NAME_None, true);
+	UE_LOG(LogTemp, Warning, TEXT("Cannon Attack!"));
 	
 	// 대포가 공격한 시간을 기록합니다.
 	controlledPawn->CannonAttackTime = GetWorld()->GetTimeSeconds();
-	
+
 	//blackboardComponent->SetValueAsBool(TEXT("IsAttacking"), false);
 
 

@@ -3,6 +3,7 @@
 
 #include "Components/StaticMeshComponent.h"
 #include "Components/ObstacleAttackComponent/ObstacleAttackComponent.h"
+#include "Components/SphereComponent.h"
 
 AControlledCannon::AControlledCannon()
 {
@@ -28,7 +29,8 @@ AControlledCannon::AControlledCannon()
 	CannonBomb->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
 	CannonBomb->SetMobility(EComponentMobility::Movable);
 
-
+	//SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SPHERE_COMP"));
+	//SphereComponent->SetupAttachment(CannonBomb);
 	
 	
 	InitialLocation = SampleComp->GetComponentLocation(); // WORLD
@@ -92,8 +94,6 @@ void AControlledCannon::ResetCannonBombLocation()
 	UE_LOG(LogTemp, Warning, TEXT("socketLocation.Y = [%.2f]"), socketLocation.Y);
 	UE_LOG(LogTemp, Warning, TEXT("socketLocation.Z = [%.2f]"), socketLocation.Z);
 
-
-	//UE_LOG(LogTemp, Warning, TEXT("socketLocation.X = [%.2f]"), socketLocation.X);
 
 	CannonBomb->SetWorldLocation(socketLocation);
 	CannonBomb->SetSimulatePhysics(false);

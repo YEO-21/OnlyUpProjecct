@@ -29,6 +29,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	class USceneComponent* SampleComp;
+
+	//UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	//class USphereComponent* SphereComponent;
 	
 
 public:
