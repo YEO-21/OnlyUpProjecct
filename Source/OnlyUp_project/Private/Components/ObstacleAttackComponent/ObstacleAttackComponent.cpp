@@ -47,8 +47,8 @@ void UObstacleAttackComponent::AttackStart()
 		TargetTime = currentTime + 5.0f;
 		IsTimeToResetBomb = true;
 	}
-	UE_LOG(LogTemp, Warning, TEXT("currentTime is %.2f"), currentTime);
-	UE_LOG(LogTemp, Warning, TEXT("TargetTime is %.2f"), TargetTime);
+	//UE_LOG(LogTemp, Warning, TEXT("currentTime is %.2f"), currentTime);
+	//UE_LOG(LogTemp, Warning, TEXT("TargetTime is %.2f"), TargetTime);
 
 
 

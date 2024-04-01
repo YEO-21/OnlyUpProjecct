@@ -3,6 +3,7 @@
 
 #include "Components/StaticMeshComponent.h"
 #include "Components/ObstacleAttackComponent/ObstacleAttackComponent.h"
+#include "Components/CannonBombInteractComponent/CannonBombInteractComponent.h"
 #include "Components/SphereComponent.h"
 
 AControlledCannon::AControlledCannon()
@@ -17,28 +18,29 @@ AControlledCannon::AControlledCannon()
 		TEXT("/Script/Engine.StaticMesh'/Engine/BasicShapes/Sphere.Sphere'"));
 
 
+	// 스태틱 메시 컴포넌트 추가
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("STATIC_MESH_COMP"));
 	StaticMeshComponent->SetMobility(EComponentMobility::Movable);
 
+	// 씬 컴포넌트 추가
 	SampleComp = CreateDefaultSubobject<USceneComponent>(TEXT("SAMPLE_COMP"));
 	SampleComp->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
 	SetRootComponent(SampleComp);
 
-
+	// 캐논밤 컴포넌트 추가
 	CannonBomb = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CANNON_BOMB"));
 	CannonBomb->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
 	CannonBomb->SetMobility(EComponentMobility::Movable);
 
-	//SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SPHERE_COMP"));
-	//SphereComponent->SetupAttachment(CannonBomb);
+	// 캐논밤 공격 상호작용 컴포넌트 추가
+	BombInteractComp = CreateDefaultSubobject<UCannonBombInteractComponent>(TEXT("BOMB_INTERACT_COMP"));
+	BombInteractComp->SetupAttachment(CannonBomb);
+	//BombInteractComp->SetSimulatePhysics(true);
+	BombInteractComp->SetCollisionProfileName(TEXT("OverlapAll"));
+
 	
-	
-	InitialLocation = SampleComp->GetComponentLocation(); // WORLD
+	//InitialLocation = SampleComp->GetComponentLocation(); // WORLD
 	//InitialLocation = SampleComp->GetRelativeLocation(); // LOCAL
-	//InitialLocation.Z += 65.0f;
-	UE_LOG(LogTemp, Warning, TEXT("InitialLocation1.X = [%.2f]"), InitialLocation.X);
-	UE_LOG(LogTemp, Warning, TEXT("InitialLocation2.Y = [%.2f]"), InitialLocation.Y);
-	UE_LOG(LogTemp, Warning, TEXT("InitialLocation3.Z = [%.2f]"), InitialLocation.Z);
 
 
 
