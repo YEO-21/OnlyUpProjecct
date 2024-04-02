@@ -9,10 +9,21 @@
 /**
  * 
  */
+#define MAXHITCOUNT				3
+
 UCLASS()
 class UCannonBombInteractComponent : public USphereComponent
 {
 	GENERATED_BODY()
+
+private:
+	UPROPERTY()
+	int HitCount;
+
+	UPROPERTY()
+	TArray<class AGameCharacter*> HitPlayers;
+
+	
 
 public:
 	UCannonBombInteractComponent();
@@ -26,6 +37,12 @@ private:
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void OnEndOverlap(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex);
 
 
 	

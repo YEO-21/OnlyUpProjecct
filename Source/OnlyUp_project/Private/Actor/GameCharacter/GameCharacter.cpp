@@ -101,6 +101,13 @@ void AGameCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 
 }
 
+void AGameCharacter::PlayRagDoll()
+{
+	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
+	GetMesh()->SetPhysicsLinearVelocity(FVector::UpVector);
+}
+
 
 
 void AGameCharacter::OnHorizontalInput(float axis)

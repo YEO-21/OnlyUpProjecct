@@ -6,6 +6,7 @@
 UCannonBombInteractComponent::UCannonBombInteractComponent()
 {
 	OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnBeginOverlap);
+	OnComponentEndOverlap.AddDynamic(this, &ThisClass::OnEndOverlap);
 
 
 }
@@ -23,12 +24,42 @@ void UCannonBombInteractComponent::OnBeginOverlap(
 
 	if (!IsValid(gameCharacter)) return;
 
+	
+	if (HitPlayers.Num() == 0)
+	{
+		HitPlayers.Add(gameCharacter);
+		
 
-	UE_LOG(LogTemp, Warning, TEXT("BombAttack is called!"));
-	FVector playerforwardvector = gameCharacter->GetActorForwardVector();
-	playerforwardvector.Z = 0.0f;
-	playerforwardvector *= 2000.0f;
+		++HitCount;
+		UE_LOG(LogTemp, Warning, TEXT("HitCount = %d"), HitCount);
 
-	gameCharacter->LaunchCharacter(playerforwardvector, true, false);
+		FVector playerforwardvector = gameCharacter->GetActorForwardVector();
+		playerforwardvector.Z = 0.0f;
+		playerforwardvector *= 2000.0f;
+		gameCharacter->LaunchCharacter(playerforwardvector * -1.0f, true, false);
+
+		if (HitCount == MAXHITCOUNT)
+			gameCharacter->PlayRagDoll();
+		
+	}
+
+	
+
+	
+}
+
+void UCannonBombInteractComponent::OnEndOverlap(
+	UPrimitiveComponent* OverlappedComponent,
+	AActor* OtherActor,
+	UPrimitiveComponent* OtherComp,
+	int32 OtherBodyIndex)
+{
+	AGameCharacter* gameCharacter = Cast<AGameCharacter>(OtherActor);
+	UE_LOG(LogTemp, Warning, TEXT("gameCharacter is valid %d"), IsValid(gameCharacter));
+
+	if (!IsValid(gameCharacter)) return;
+
+	if (HitPlayers.Num() != 0)
+		HitPlayers.Empty();
 
 }
