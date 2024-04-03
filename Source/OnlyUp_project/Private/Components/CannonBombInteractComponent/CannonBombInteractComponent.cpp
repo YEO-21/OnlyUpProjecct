@@ -8,7 +8,7 @@ UCannonBombInteractComponent::UCannonBombInteractComponent()
 	OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnBeginOverlap);
 	OnComponentEndOverlap.AddDynamic(this, &ThisClass::OnEndOverlap);
 
-
+	HitCount = 0;
 }
 
 void UCannonBombInteractComponent::OnBeginOverlap(
