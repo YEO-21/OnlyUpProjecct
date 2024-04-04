@@ -23,9 +23,9 @@ AControlledCannon::AControlledCannon()
 	StaticMeshComponent->SetMobility(EComponentMobility::Movable);
 
 	// ¾À ÄÄÆ÷³ÍÆ® Ãß°¡
-	SampleComp = CreateDefaultSubobject<USceneComponent>(TEXT("SAMPLE_COMP"));
-	SampleComp->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
-	SetRootComponent(SampleComp);
+	//SampleComp = CreateDefaultSubobject<USceneComponent>(TEXT("SAMPLE_COMP"));
+	//SampleComp->SetupAttachment(StaticMeshComponent, TEXT("Socket_CannonBomb"));
+	//SetRootComponent(SampleComp);
 
 	// Ä³³í¹ã ÄÄÆ÷³ÍÆ® Ãß°¡
 	CannonBomb = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CANNON_BOMB"));

@@ -24,6 +24,8 @@ private:
 	UPROPERTY(VisibleAnywhere, meta = (AllowrprivateAccess = "true"))
 	class UZoomableSpringArmComponent* SpringArmComponent;
 
+	
+
 
 
 public:
