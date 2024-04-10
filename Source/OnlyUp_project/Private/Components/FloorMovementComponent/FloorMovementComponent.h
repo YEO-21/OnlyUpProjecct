@@ -12,10 +12,11 @@ class UFloorMovementComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+private:
+	UPROPERTY()
 	bool IsMoveRequested;
 
+	
 
 
 public:	
@@ -32,8 +33,6 @@ public:
 
 private:
 	void OnMoveFloor(float dt);
-
-
 
 		
 };

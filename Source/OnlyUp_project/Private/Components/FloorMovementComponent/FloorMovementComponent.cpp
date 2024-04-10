@@ -6,6 +6,7 @@ UFloorMovementComponent::UFloorMovementComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 
+	IsMoveRequested = true;
 }
 
 
@@ -36,5 +37,4 @@ void UFloorMovementComponent::OnMoveFloor(float dt)
 	else return;
 
 }
-
 
