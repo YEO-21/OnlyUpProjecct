@@ -6,7 +6,7 @@ UFloorMovementComponent::UFloorMovementComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 
-	IsMoveRequested = true;
+	//IsMoveRequested = true;
 }
 
 

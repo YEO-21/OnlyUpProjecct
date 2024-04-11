@@ -41,9 +41,9 @@ EBTNodeResult::Type UBTTask_CannonAttack::ExecuteTask(UBehaviorTreeComponent& Ow
 	AControlledCannon* controlledPawn = Cast<AControlledCannon>(ownerController->GetPawn());
 
 	FVector direction = (target->GetActorLocation() - controlledPawn->GetActorLocation());
-	direction.Z = 0.0f;
+	//direction.Z = 0.0f;
 	direction = direction.GetSafeNormal();
-	direction *= 400.0f;
+	direction *= 500.0f;
 
 	
 

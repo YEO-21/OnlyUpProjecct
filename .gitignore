@@ -49,3 +49,5 @@ Session.vim
 
 # Visual Studio
 .vs
+Content/Maps/MainWorld.umap
+Content/Maps/MainWorld_HLOD0_Instancing.uasset

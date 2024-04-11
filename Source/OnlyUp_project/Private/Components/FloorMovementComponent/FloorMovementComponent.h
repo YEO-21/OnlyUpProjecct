@@ -12,8 +12,8 @@ class UFloorMovementComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-private:
-	UPROPERTY()
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool IsMoveRequested;
 
 	

@@ -18,7 +18,7 @@ private:
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* Floor;
 
-	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UFloorMovementComponent* FloorMovementComponent;
 
 public:
@@ -29,4 +29,10 @@ protected:
 
 public:
 	void OpenFloor(float dt);
+
+	UFUNCTION()
+	class UFloorMovementComponent* GetFloorMovement() const
+	{
+		return FloorMovementComponent;
+	}
 };

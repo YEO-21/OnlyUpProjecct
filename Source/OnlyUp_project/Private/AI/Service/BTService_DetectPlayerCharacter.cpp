@@ -36,7 +36,7 @@ void UBTService_DetectPlayerCharacter::CheckArea(UBehaviorTreeComponent& ownerCo
 
 	AControlledCannon* controlledPawn = Cast<AControlledCannon>(ownerController->GetPawn());
 
-	static FVector currentLocation = ownerController->GetPawn()->GetActorLocation();
+	FVector currentLocation = ownerController->GetPawn()->GetActorLocation();
 
 	// 충돌 타입 배열
 	TArray<TEnumAsByte<EObjectTypeQuery>> objectTypeQuery;
@@ -47,7 +47,7 @@ void UBTService_DetectPlayerCharacter::CheckArea(UBehaviorTreeComponent& ownerCo
 
 
 	// 구 반지름
-	float radius = 5000.0f;
+	float radius = 8000.0f;
 
 
 	if (UKismetSystemLibrary::SphereOverlapActors(ownerComponent.GetOwner(),
